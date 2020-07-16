@@ -3,7 +3,10 @@ Import("env")
 import os
 import subprocess
 
+
 if "1" == os.environ.get("INSTALL_LIBS", "0"):
+    print("<<<<<<<<<<<<< INSTALLING")
+
     PIO_PLATFORM = env.PioPlatform()
     CONFIG = env.GetProjectConfig()
 
