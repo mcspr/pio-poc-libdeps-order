@@ -1,0 +1,30 @@
+name: PlatformIO CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python
+      uses: actions/setup-python@v1
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install platformio
+        pio upgrade --dev
+    - name: Run without installing libs manually
+      run: |
+          rm -rf ~/.platformio/lib
+          rm -rf .pio/libdeps
+          pio run -e ok
+          pio run -e fail
+    - name: Run with installer script
+      run: |
+          export INSTALL_LIBS=1
+          rm -rf ~/.platformio/lib
+          rm -rf .pio/libdeps
+          pio run -e ok
+          pio run -e fail
