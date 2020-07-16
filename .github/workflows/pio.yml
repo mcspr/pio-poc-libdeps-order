@@ -18,13 +18,16 @@ jobs:
     - name: Run without installing libs manually
       run: |
           rm -rf ~/.platformio/lib
+          rm -rf .pio/build
           rm -rf .pio/libdeps
           pio run -e ok
           pio run -e fail
     - name: Run with installer script
+      env:
+          INSTALL_LIBS: "1"
       run: |
-          export INSTALL_LIBS=1
           rm -rf ~/.platformio/lib
+          rm -rf .pio/build
           rm -rf .pio/libdeps
           pio run -e ok
           pio run -e fail
